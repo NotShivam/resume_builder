@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { X } from "react-feather";
 import styles from './Editor.module.css';
 import InputControl from '../InputControl/InputControl'
 
@@ -25,7 +26,7 @@ function Editor(props) {
 	});
 	const handlePointUpdate = (value, index) => {
 		const tempValues = { ...values };
-		if(!Array.isArray(tempValues.points))
+		if (!Array.isArray(tempValues.points))
 			tempValues.points = [];
 		tempValues.points[index] = value;
 		setValues(tempValues);
@@ -483,6 +484,40 @@ function Editor(props) {
 				break;
 		}
 	};
+	const handleAddNew = () => {
+		const details = activeInformation?.details;
+		if (!details)
+			return;
+		const lastDetail = details.slice(-1)[0];
+		if (!Object.keys(lastDetail).length)
+			return
+		details?.push({});
+		props.setInformation(prev => (
+			{
+				...prev, [sections[activeSectionKey]]:
+				{
+					...information[sections[activeSectionKey]],
+					details: details
+				}
+			}));
+		setActiveDetailIndex(details?.length);
+	};
+	const handleDeleteDetail = (index) => {
+		const details = activeInformation?.details
+			? [...activeInformation?.details]
+			: "";
+		if (!details) return;
+		details.splice(index, 1);
+		props.setInformation((prev) => ({
+			...prev,
+			[sections[activeSectionKey]]: {
+				...information[sections[activeSectionKey]],
+				details: details,
+			},
+		}));
+
+		setActiveDetailIndex((prev) => (prev === index ? 0 : prev - 1));
+	};
 	useEffect(() => {
 		const activeInfo = information[sections[activeSectionKey]];
 		setActiveInformation(activeInfo);
@@ -530,7 +565,30 @@ function Editor(props) {
 			other: typeof activeInfo?.detail !== "object" ? activeInfo.detail : "",
 		});
 	}, [activeSectionKey]);
+	useEffect(() => {
+		setActiveInformation(information[sections[activeSectionKey]]);
+	}, [information]);
+	useEffect(() => {
+		const details = activeInformation?.details;
+		if (!details) return;
 
+		const activeInfo = information[sections[activeSectionKey]];
+		setValues({
+			overview: activeInfo.details[activeDetailIndex]?.overview || "",
+			link: activeInfo.details[activeDetailIndex]?.link || "",
+			certificationLink:
+				activeInfo.details[activeDetailIndex]?.certificationLink || "",
+			companyName: activeInfo.details[activeDetailIndex]?.companyName || "",
+			location: activeInfo.details[activeDetailIndex]?.location || "",
+			startDate: activeInfo.details[activeDetailIndex]?.startDate || "",
+			endDate: activeInfo.details[activeDetailIndex]?.endDate || "",
+			points: activeInfo.details[activeDetailIndex]?.points || "",
+			title: activeInfo.details[activeDetailIndex]?.title || "",
+			linkedin: activeInfo.details[activeDetailIndex]?.linkedin || "",
+			github: activeInfo.details[activeDetailIndex]?.github || "",
+			college: activeInfo.details[activeDetailIndex]?.college || "",
+		});
+	}, [activeDetailIndex]);
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
@@ -557,15 +615,26 @@ function Editor(props) {
 				<div className={styles.chips}>
 					{activeInformation?.details ?
 						activeInformation?.details?.map((item, index) => (
-							<div className={`${styles.chips} 
-							${activeDetailIndex === index ? styles.active : ""}`}
+							<div
+								className={`${styles.chip} ${activeDetailIndex === index ? styles.active : ""
+									}`}
 								key={item.title + index}
-								onClick={() => setActiveDetailIndex(index)}>
+								onClick={() => setActiveDetailIndex(index)}
+							>
 								<p>{sections[activeSectionKey]} {index + 1}</p>
-								<x />
+								<X
+									onClick={(event) => {
+										event.stopPropagation();
+										handleDeleteDetail(index)
+									}} />
 							</div>
 						))
 						: ""}
+					{
+						activeInformation?.details?.length > 0 ?
+							(<div className={styles.new} onClick={handleAddNew}>+New</div>) : ("")
+					}
+
 				</div>
 				{generateBody()}
 				<button onClick={handleSubmission}>Save</button>
