@@ -4,7 +4,6 @@ import { ArrowDown } from "react-feather";
 
 import Editor from "../Editor/Editor";
 import Resume from "../Resume/Resume";
-
 import styles from "./Body.module.css";
 
 function Body() {
@@ -60,7 +59,7 @@ function Body() {
     });
 
     return (
-        <div className={styles.container}>
+        <div id="body" className={styles.container}>
             <p className={styles.heading}>Resume Builder</p>
             <div className={styles.toolbar}>
                 <div className={styles.colors}>
