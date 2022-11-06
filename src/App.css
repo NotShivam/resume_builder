@@ -3,3 +3,6 @@
     flex-direction: column;
     gap: 40px;
 }
+.content_wrap{
+    flex: 1;
+}
