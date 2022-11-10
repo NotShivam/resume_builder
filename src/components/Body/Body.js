@@ -60,6 +60,7 @@ function Body() {
 
     return (
         <div id="body" className={styles.container}>
+            <br/>
             <p className={styles.heading}>Resume Builder</p>
             <div className={styles.toolbar}>
                 <div className={styles.colors}>

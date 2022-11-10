@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './header.module.css'
-import resume_folder from '../../assets/resume_folder.svg'
+import resume_folder from '../../assets/resume.svg'
 
 function Header() {
     return (<div className={styles.container}>

@@ -19,15 +19,15 @@ function Footer() {
                     </div>
                     <div className={styles.col}>
                         <h3 className={styles.col_heading}>For Job Seekers</h3>
-                        <a href="body" className={styles.list_elements}>Build a Resume</a>
+                        <a href="#body" className={styles.list_elements}>Build a Resume</a>
                         <a href="https://www.resume.com/sample" className={styles.list_elements}>Resume Samples</a>
                         <a href="https://angel.co/" className={styles.list_elements}>Job Search Portal</a>
                     </div>
                     <div className={styles.col}>
                         <h3 className={styles.col_heading}>Know Us</h3>
-                        <a href="footer" className={styles.list_elements}>About Us</a>
-                        <a href="footer" className={styles.list_elements}>Contact Us</a>
-                        <a href="footer" className={styles.list_elements}>Privacy Policy</a>
+                        <a href="#footer" className={styles.list_elements}>About Us</a>
+                        <a href="#footer" className={styles.list_elements}>Contact Us</a>
+                        <a href="#footer" className={styles.list_elements}>Privacy Policy</a>
                     </div>
                 </div>
             </div>

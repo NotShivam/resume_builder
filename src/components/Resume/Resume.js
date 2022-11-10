@@ -10,6 +10,8 @@ import {
 } from "react-feather";
 
 import styles from "./Resume.module.css";
+import UploadImgControl from '../InputControl/UploadImgControl'
+
 
 const Resume = forwardRef((props, ref) => {
   const information = props.information;
@@ -71,8 +73,7 @@ const Resume = forwardRef((props, ref) => {
               )}
               {item.startDate && item.endDate ? (
                 <div className={styles.date}>
-                  <Calendar /> {getFormattedDate(item.startDate)}-
-                  {getFormattedDate(item.endDate)}
+                  <Calendar /> {getFormattedDate(item.startDate)} - {getFormattedDate(item.endDate)}
                 </div>
               ) : (
                 <div />
@@ -182,8 +183,7 @@ const Resume = forwardRef((props, ref) => {
               )}
               {item.startDate && item.endDate ? (
                 <div className={styles.date}>
-                  <Calendar /> {getFormattedDate(item.startDate)} -
-                  {getFormattedDate(item.endDate)}
+                  <Calendar /> {getFormattedDate(item.startDate)} - {getFormattedDate(item.endDate)}
                 </div>
               ) : (
                 ""
@@ -301,38 +301,44 @@ const Resume = forwardRef((props, ref) => {
     <div ref={ref}>
       <div ref={containerRef} className={styles.container}>
         <div className={styles.header}>
-          <p className={styles.heading}>{info.basicInfo?.detail?.name}</p>
-          <p className={styles.subHeading}>{info.basicInfo?.detail?.title}</p>
-
-          <div className={styles.links}>
-            {info.basicInfo?.detail?.email ? (
-              <a className={styles.link} type="email">
-                <AtSign /> {info.basicInfo?.detail?.email}
-              </a>
-            ) : (
-              <span />
-            )}
-            {info.basicInfo?.detail?.phone ? (
-              <a className={styles.link}>
-                <Phone /> {info.basicInfo?.detail?.phone}
-              </a>
-            ) : (
-              <span />
-            )}
-            {info.basicInfo?.detail?.linkedin ? (
-              <a className={styles.link}>
-                <Linkedin /> {info.basicInfo?.detail?.linkedin}
-              </a>
-            ) : (
-              <span />
-            )}
-            {info.basicInfo?.detail?.github ? (
-              <a className={styles.link}>
-                <GitHub /> {info.basicInfo?.detail?.github}
-              </a>
-            ) : (
-              <span />
-            )}
+          <div className={styles.sbys}>
+            <div>
+              <UploadImgControl />
+            </div>
+            <div className={styles.sbys_r}>
+              <p className={styles.heading}>{info.basicInfo?.detail?.name}</p>
+              <p className={styles.subHeading}>{info.basicInfo?.detail?.title}</p>
+              <div className={styles.links}>
+                {info.basicInfo?.detail?.email ? (
+                  <a className={styles.link} type="email">
+                    <AtSign /> {info.basicInfo?.detail?.email}
+                  </a>
+                ) : (
+                  <span />
+                )}
+                {info.basicInfo?.detail?.phone ? (
+                  <a className={styles.link}>
+                    <Phone /> {info.basicInfo?.detail?.phone}
+                  </a>
+                ) : (
+                  <span />
+                )}
+                {info.basicInfo?.detail?.linkedin ? (
+                  <a className={styles.link}>
+                    <Linkedin /> {info.basicInfo?.detail?.linkedin}
+                  </a>
+                ) : (
+                  <span />
+                )}
+                {info.basicInfo?.detail?.github ? (
+                  <a className={styles.link}>
+                    <GitHub /> {info.basicInfo?.detail?.github}
+                  </a>
+                ) : (
+                  <span />
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
